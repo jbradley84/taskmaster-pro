@@ -79,12 +79,16 @@ $(".card .list-group").sortable({
   tolerance: "pointer",
   helper: "clone",
   activate: function(event, ui) {
+    $(this).addClass("dropover");
   },
   deactivate: function(event, ui) {
+    $(this).removeClass("dropover");
   },
   over: function(event) {
+    $(event.target).addClass("dropover-active");
   },
   out: function(event) {
+    $(event.target).removeClass("dropover-active");
   },
   update: function() {
     var tempArr = [];
