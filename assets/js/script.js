@@ -54,12 +54,8 @@ var auditTask = function(taskEl) {
     .text()
     .trim();
 
-  console.log(date);
-
   // convert to moment object at 5:00pm
   var time = moment(date, "L").set("hour", 17);
-
-  console.log(time);
 
   // remove any old classes from element
   $(taskEl).removeClass("list-group-item-warning list-group-item-danger");
@@ -71,6 +67,8 @@ var auditTask = function(taskEl) {
   else if (Math.abs(moment().diff(time, "days")) <= 2) {
     $(taskEl).addClass("list-group-item-warning");
   }
+
+  console.log(auditTask);
 };
 
 // enable draggable/sortable feature on list-group elements
@@ -81,16 +79,12 @@ $(".card .list-group").sortable({
   tolerance: "pointer",
   helper: "clone",
   activate: function(event, ui) {
-    console.log(ui);
   },
   deactivate: function(event, ui) {
-    console.log(ui);
   },
   over: function(event) {
-    console.log(event);
   },
   out: function(event) {
-    console.log(event);
   },
   update: function() {
     var tempArr = [];
@@ -135,10 +129,8 @@ $("#trash").droppable({
     ui.draggable.remove();
   },
   over: function(event, ui) {
-    console.log(ui);
   },
   out: function(event, ui) {
-    console.log(ui);
   }
 });
 
@@ -288,6 +280,12 @@ $("#remove-tasks").on("click", function() {
 
 // load tasks for the first time
 loadTasks();
+
+setInterval(function () {
+  $(".card .list-group-item").each(function(index, el) {
+    auditTask(el);
+  });
+}, (1000 * 60) * 30);
 
 
 
